@@ -12,7 +12,6 @@ namespace WebAddressbookTests
     public class ApplicationManager
     {
         protected IWebDriver driver;
-        private StringBuilder verificationErrors;
         protected string baseURL;
 
         protected LoginHelper loginHelper;
@@ -21,13 +20,20 @@ namespace WebAddressbookTests
 
         public ApplicationManager()
         {
-            loginHelper = new LoginHelper(driver);
-            navigator = new NavigationHelper(driver, baseURL);
-            groupHelper = new GroupHelper(driver);
-
             driver = new FirefoxDriver();
             baseURL = "http://localhost";
-            verificationErrors = new StringBuilder();
+
+            loginHelper = new LoginHelper(this);
+            navigator = new NavigationHelper(this, baseURL);
+            groupHelper = new GroupHelper(this);
+        }
+
+        public IWebDriver Driver
+        {
+            get
+            {
+                return driver;
+            }
         }
 
         public void Stop()
@@ -65,5 +71,7 @@ namespace WebAddressbookTests
                 return groupHelper;
             }
         }
+
+
     }
 }
