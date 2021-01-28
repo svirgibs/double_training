@@ -36,6 +36,25 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public void CreateGroupForTests()
+        {
+
+            if (IsGroupCreated() == false)
+            {
+                manager.Navigator.GoToGroupsPage();
+                GroupData group = new GroupData("aaa");
+                group.Header = "ddd";
+                group.Footer = "fff";
+
+                Create(group);
+            }
+        }
+
+        public bool IsGroupCreated()
+        {
+            return IsElementPresent(By.XPath("(//input[@name='selected[]'])"));
+        }
+
         public GroupHelper SubmitGroupModofocation()
         {
             driver.FindElement(By.Name("update")).Click();

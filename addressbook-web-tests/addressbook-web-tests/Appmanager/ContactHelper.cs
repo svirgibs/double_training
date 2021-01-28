@@ -30,6 +30,36 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public void CreateContactForTests()
+        {
+            if (IsContactCreated() == false)
+            {
+                manager.Navigator.GoToGroupsPage();
+
+                ContactData contact = new ContactData("Denis");
+                contact.MiddleName = "Iavorskii";
+                contact.LastName = "Timurovich";
+
+                Create(contact);
+            }
+        }
+
+        public ContactHelper Create(ContactData contact)
+        {
+            manager.Navigator.GoToHomePage();
+
+            InitContactCreation();
+            FillContactForm(contact);
+            SubmitContactCreation();
+            ReturnToHomePage();
+            return this;
+        }
+
+        public bool IsContactCreated()
+        {
+            return IsElementPresent(By.XPath("(//input[@name='selected[]'])"));
+        }
+
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.XPath("//input[@name='update']")).Click();

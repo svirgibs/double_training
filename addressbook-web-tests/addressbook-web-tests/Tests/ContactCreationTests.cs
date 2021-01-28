@@ -10,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactCreationTests : TestBase
+    public class ContactCreationTests : AuthTestBase
     {
         [Test]
         public void ContactCreationTest()
@@ -19,10 +19,7 @@ namespace WebAddressbookTests
             contact.MiddleName = "Iavorskii";
             contact.LastName = "Timurovich";
 
-            app.Contacts.InitContactCreation()
-                .FillContactForm(contact)
-                .SubmitContactCreation()
-                .ReturnToHomePage();
+            app.Contacts.Create(contact);
         }
     }
 }
